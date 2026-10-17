@@ -18,7 +18,10 @@ const GY={
   rawSession(){return ls.get(LS_SESS)},
   async login(code){code=String(code||"").trim().toUpperCase();if(!code)return {ok:false,error:"missing"};
     const r=await call(code);if(r.ok){ls.set(LS_SESS,{code,name:r.name,exp:r.expires,lessons:r.lessons,keys:r.keys,ts:Date.now()})}return r},
-  async refresh(force){const s=ls.get(LS_SESS);if(!s)return null;if(!force&&Date.now()-s.ts<REFRESH_MS&&new Date(s.exp)>new Date())return s;
+  async refresh(force){const s=ls.get(LS_SESS);if(!s)return null;
+    /* Trang chủ: luôn hỏi máy chủ (chạy nền). Trang bài: chỉ hỏi khi chưa có khóa bài này, để mở bài nhanh. */
+    const onLesson=typeof UNIT!=="undefined", needUnit=onLesson&&!(s.keys&&s.keys[UNIT]);
+    if(!force&&onLesson&&!needUnit&&Date.now()-s.ts<REFRESH_MS&&new Date(s.exp)>new Date())return s;
     const r=await call(s.code);if(r.ok){const n={code:s.code,name:r.name,exp:r.expires,lessons:r.lessons,keys:r.keys,ts:Date.now()};ls.set(LS_SESS,n);return n}
     if(r.error&&r.error!=="network"&&r.error!=="noserver"){ls.del(LS_SESS);return null}return GY.session()},
   logout(){ls.del(LS_SESS)},
