@@ -9,8 +9,8 @@ const ERR={missing:"Bạn chưa nhập mã.",notfound:"Mã không đúng. Kiểm
   locked:"Mã đang tạm khóa. Liên hệ Thầy Vy.",nodate:"Mã chưa được kích hoạt. Liên hệ Thầy Vy.",noserver:"Trang chưa được cấu hình máy chủ (gy-config.js).",network:"Không kết nối được. Kiểm tra mạng rồi thử lại."};
 async function call(code){
   if(!window.GY_SCRIPT_URL) return {ok:false,error:"noserver"};
-  const u=window.GY_SCRIPT_URL+"?code="+encodeURIComponent(code)+"&dev="+encodeURIComponent(devId())+"&label="+encodeURIComponent(devLabel());
-  try{const r=await fetch(u,{redirect:"follow"});return await r.json()}catch(e){return {ok:false,error:"network"}}
+  const u=window.GY_SCRIPT_URL+"?code="+encodeURIComponent(code)+"&dev="+encodeURIComponent(devId())+"&label="+encodeURIComponent(devLabel())+"&t="+Date.now();
+  try{const r=await fetch(u,{redirect:"follow",cache:"no-store"});return await r.json()}catch(e){return {ok:false,error:"network"}}
 }
 const GY={
   ERR, devId,

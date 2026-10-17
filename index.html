@@ -159,8 +159,8 @@ a{color:inherit}
   <div class="foot"><b>Guangyu Hanyu · 0358840411</b><br>加油！Cố lên nhé!</div>
 </div>
 
-<script src="gy-config.js"></script>
-<script src="gy-auth.js"></script>
+<script src="gy-config.js?v=3"></script>
+<script src="gy-auth.js?v=3"></script>
 <script>
 const CATEGORIES = [
   { id:'nguam',    label:'Ngữ âm',            sub:'Luyện đọc pinyin', ico:'音', color:'#3F5B70', external:true, href:'luyen-doc-pinyin-rut-tham-cam.html' },
@@ -252,7 +252,10 @@ function renderAll(){renderSidebar();renderHead();renderResults();app.classList.
 $('#backBtn').addEventListener('click',()=>{state.view='menu';app.classList.remove('view-list');scrollTo({top:0})});
 $('#searchInput').addEventListener('input',e=>{state.search=e.target.value;renderResults()});
 renderMember();renderAll();
-(async()=>{if(GY.rawSession()){await GY.refresh(false);}await unlockLinks();renderMember();renderAll()})();
+const syncNow=async()=>{if(GY.rawSession()){await GY.refresh(false);}await unlockLinks();renderMember();renderAll()};
+syncNow();
+window.addEventListener('pageshow',e=>{if(e.persisted)syncNow()});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')syncNow()});
 </script>
 </body>
 </html>
