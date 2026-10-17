@@ -117,7 +117,7 @@ a{color:inherit}
 .member{margin-top:16px;background:var(--card);border:1.5px solid #DCC8A6;border-radius:18px;padding:12px 16px;display:flex;align-items:center;gap:10px 12px;flex-wrap:wrap;box-shadow:0 4px 14px rgba(110,70,40,.06);font-size:15.5px}
 .member .m-lock,.member .m-ok{font-size:22px}
 .member .m-txt{flex:1 1 280px}
-.m-form{display:flex;gap:8px;flex:1 1 300px}
+.m-form{display:flex;gap:8px;flex:1 1 260px;min-width:0;max-width:100%}
 .m-form input{flex:1;min-width:0;font:inherit;font-size:17px;letter-spacing:.06em;text-transform:uppercase;padding:9px 14px;border:2px solid var(--line);border-radius:12px;background:var(--paper)}
 .m-form input:focus{outline:none;border-color:var(--orange);background:#fff;box-shadow:0 0 0 4px var(--orange-soft)}
 .m-form button{border:0;border-radius:12px;background:#9B2D24;color:#F6EBD9;font-weight:700;font-size:16px;padding:0 18px;white-space:nowrap}
@@ -224,7 +224,7 @@ function renderMember(){
   if(s){el.innerHTML=`<span class="m-ok">🔓</span><span class="m-txt">Xin chào <b>${s.name||'bạn'}</b> · đã mở <b>${s.lessons.length}</b>/15 bài · hạn dùng đến <b>${GY.fmtDate(s.exp)}</b></span><button type="button" id="mOut" class="m-link">Đổi mã</button>`;
     $('#mOut').onclick=()=>{GY.logout();renderMember();renderAll()};return}
   el.innerHTML=`<span class="m-lock">🔒</span><span class="m-txt">${raw&&new Date(raw.exp)<new Date()?'<b style="color:#C23B2E">Mã đã hết hạn.</b> ':''}Bài 1 học thử miễn phí. Nhập <b>mã học viên</b> để mở các bài khác:</span>
-   <span class="m-form"><input id="mCode" placeholder="Nhập mã học viên" autocomplete="off" autocapitalize="characters" spellcheck="false"><button type="button" id="mGo">Mở khóa</button></span><span class="m-msg" id="mMsg"></span>`;
+   <span class="m-form"><input id="mCode" placeholder="XXXXXXXX" inputmode="numeric" autocomplete="off" autocapitalize="characters" spellcheck="false"><button type="button" id="mGo">Mở khóa</button></span><span class="m-msg" id="mMsg"></span>`;
   const go=async()=>{const b=$('#mGo');b.disabled=true;b.textContent='Đang kiểm tra…';const r=await GY.login($('#mCode').value);b.disabled=false;b.textContent='Mở khóa';
     if(!r.ok){$('#mMsg').textContent=GY.ERR[r.error]||'Có lỗi, thử lại sau.';return}await unlockLinks();renderMember();renderAll()};
   $('#mGo').onclick=go;$('#mCode').onkeydown=e=>{if(e.key==='Enter')go()};
