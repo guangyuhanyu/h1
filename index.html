@@ -178,7 +178,8 @@ const LESSONS = [
   {"n": null, "hanzi": "综合复习 6–10", "titleVi": "Ôn tập tổng hợp Bài 6-10", "category": "ontap", "desc": "120 từ vựng + 15 điểm ngữ pháp · Flashcard tra cứu, tìm kiếm không dấu · Rút ngẫu nhiên 5 từ / 3 điểm ngữ pháp", "href": "on-tap-tong-hop-bai6-10.html"},
   {"n": null, "hanzi": "综合复习 11–15", "titleVi": "Ôn tập tổng hợp Bài 11-15", "category": "ontap", "desc": "117 từ vựng + 13 điểm ngữ pháp · Flashcard tra cứu, tìm kiếm không dấu · Rút ngẫu nhiên 5 từ / 3 điểm ngữ pháp", "href": "on-tap-tong-hop-bai11-15.html"},
   {"n": null, "hanzi": "综合复习 1–15", "titleVi": "Ôn tập tổng hợp Bài 1-15", "category": "ontap", "desc": "Toàn bộ 329 từ vựng + 39 điểm ngữ pháp cả 15 bài · Flashcard tra cứu, tìm kiếm không dấu · Rút ngẫu nhiên 5 từ / 3 điểm ngữ pháp", "href": "on-tap-tong-hop-bai1-15.html"},
-  {"n": null, "hanzi": "模拟测试", "titleVi": "Thi thử HSK1 3.0", "category": "ontap", "desc": "全真模拟题 2 · 40 câu (Nghe 20 + Đọc 20 câu, 17 phút) · Nghe audio tự động phát hết mới sang phần Đọc · Chấm điểm + gửi kết quả cho giáo viên", "href": "thi-thu-hsk1-de2.html"},
+  {"n": null, "hanzi": "模拟测试", "titleVi": "Thi thử HSK1 3.0 · Đề 1", "category": "ontap", "desc": "全真模拟题 1 · 40 câu (Nghe 20 + Đọc 20 câu, 17 phút) · Nghe audio tự động phát hết mới sang phần Đọc · Chấm điểm + gửi kết quả cho giáo viên", "href": "thi-thu-hsk1-de1.html"},
+  {"n": null, "hanzi": "模拟测试", "titleVi": "Thi thử HSK1 3.0 · Đề 2", "category": "ontap", "desc": "全真模拟题 2 · 40 câu (Nghe 20 + Đọc 20 câu, 17 phút) · Nghe audio tự động phát hết mới sang phần Đọc · Chấm điểm + gửi kết quả cho giáo viên", "href": "thi-thu-hsk1-de2.html"},
   {"n": 1, "hanzi": "", "titleVi": "Bài 1", "category": "filenghe", "desc": "Audio sách bài tập · Luyện nghe + đáp án", "href": "https://drive.google.com/drive/u/1/folders/1jsx8hl4F4YrKusTEGcZsTWjz6f8sKlTQ"},
   {"n": 2, "hanzi": "", "titleVi": "Bài 2", "category": "filenghe", "desc": "Audio sách bài tập · Luyện nghe + đáp án", "href": "", "enc": "T38KRd5j27LM4T3bIiFghSrSdMp+6H/IdQlFvki7d5Yv7XPJ2Uq1ZmrAtA2B/Ugw/N50FIivk7PAG1lxGq7dBw2FGw9G4PcEypoFlNdBSD6+95Vc4Zyr816AGmszFZKlEIQo7bI5HDo37UMcXh/23hNvuQQLP22p", "unit": "L2"},
   {"n": 3, "hanzi": "", "titleVi": "Bài 3", "category": "filenghe", "desc": "Audio sách bài tập · Luyện nghe + đáp án", "href": "", "enc": "PbRpvDiPUVQYCZHZKqNVvguwny42zUzkQWxY+SSw3cNi2HCQs1qX8bzQOURFRav1IUv0eJ4lA2/US5svzJeIOgByqwOSlDNl2eibY/78TLBpK6oO9dTgcVHZORwdsOcPmJD/S76ezPGSERJcORA5dqQswrleAGCm", "unit": "L3"},
@@ -217,7 +218,7 @@ function renderHead(){
 }
 
 const UNIT_OF=l=>{if(l.unit)return l.unit;if((l.category==='baihoc'||l.category==='luyentap')&&l.n>1)return 'L'+l.n;
-  const m={'on-tap-tong-hop-bai1-5.html':'T1_5','on-tap-tong-hop-bai6-10.html':'T6_10','on-tap-tong-hop-bai11-15.html':'T11_15','on-tap-tong-hop-bai1-15.html':'T1_15','thi-thu-hsk1-de2.html':'EXAM'};return m[l.href]||null};
+  const m={'on-tap-tong-hop-bai1-5.html':'T1_5','on-tap-tong-hop-bai6-10.html':'T6_10','on-tap-tong-hop-bai11-15.html':'T11_15','on-tap-tong-hop-bai1-15.html':'T1_15','thi-thu-hsk1-de1.html':'EXAM','thi-thu-hsk1-de2.html':'EXAM'};return m[l.href]||null};
 async function unlockLinks(){for(const l of LESSONS){if(l.enc&&!l.href&&GY.key(l.unit)){try{l.href=await GY.decrypt(l.unit,l.enc)}catch(e){}}if(l.enc&&!GY.key(l.unit))l.href=''}}
 function renderMember(){
   const s=GY.session(),raw=GY.rawSession(),el=$('#member');
